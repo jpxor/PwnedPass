@@ -20,7 +20,8 @@
         <center>
         <h2>Pwned Password Check (onblur)</h2>
         <input type="password" onblur=CheckPass(this.value) oninput=ClearPassInfo()>
-        <div id=passwordInfo></div>
+        <div style="height: 1em; margin-bottom:2em;" id=passwordInfo></div>
+        <a href="https://haveibeenpwned.com/Passwords">Data Source</a>
     </body>
     <script>
         pwnedpass.init("Demo"); // adds user-agent string, optional
