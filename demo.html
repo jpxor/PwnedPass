@@ -1,0 +1,27 @@
+<html>
+    <header>
+            <script src="pwnedpass.js"></script>
+            <script>
+                pwnedpass.init("Demo");
+                var infodiv = document.getElementById("passwordInfo");
+
+                function CheckPass(password){
+                    pwnedpass.sha1(password).then(function(hash){
+                        pwnedpass.check(hash,
+                         {
+                            Pwned:function(){infodiv.innerHTML = "This password is compromised";},
+                            Clean:function(){infodiv.innerHTML = "This password is clean";}
+                        });
+                    });
+                }
+                function ClearPassInfo(){
+                    infodiv.innerHTML = "";
+                }
+            </script>
+    </header>
+    <body>
+        <h3>Pwned Password Check (onblur)</h3>
+        <input type="password" onblur=CheckPass(this.value) oninput=ClearPassInfo()>
+        <div id=passwordInfo></div>
+    </body>
+</html>
