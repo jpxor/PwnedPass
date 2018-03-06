@@ -2,10 +2,7 @@
     <header>
             <script src="pwnedpass.js"></script>
             <script>
-                pwnedpass.init("Demo");
-                var infodiv = document.getElementById("passwordInfo");
-
-                function CheckPass(password){
+                function CheckPass(password){                    
                     pwnedpass.sha1(password).then(function(hash){
                         pwnedpass.check(hash,
                          {
@@ -20,8 +17,13 @@
             </script>
     </header>
     <body>
-        <h3>Pwned Password Check (onblur)</h3>
+        <center>
+        <h2>Pwned Password Check (onblur)</h2>
         <input type="password" onblur=CheckPass(this.value) oninput=ClearPassInfo()>
         <div id=passwordInfo></div>
     </body>
+    <script>
+        pwnedpass.init("Demo"); // adds user-agent string, optional
+        var infodiv = document.getElementById("passwordInfo");
+    </script>
 </html>
