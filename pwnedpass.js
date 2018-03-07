@@ -1,7 +1,7 @@
 
 
 // module for checking passwords against a set of known exposed passwords
-var pwnedpass = (function () {
+var PwnedPass = (function () {
 
 
     //haveibeenpwned.com/Passwords

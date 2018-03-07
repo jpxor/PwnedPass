@@ -1,8 +1,4 @@
 <html>
-<head>
-    <script src="pwnedpass.js" async></script>
-</head>
-
 <body>
     <div style="position: relative; top: 20%;">
         <center>
@@ -14,12 +10,13 @@
     </div>
 </body>
 
+<script src="pwnedpass.js"></script>
 <script>
-    pwnedpass.setUserAgent("PwnedPass-Demo-App");
+    PwnedPass.setUserAgent("PwnedPass-Demo-App");
     var infodiv = document.getElementById("passwordInfo");
 
     function CheckPass(password) {
-        pwnedpass.check(password,
+        PwnedPass.check(password,
             {
                 Pwned: function (count) { infodiv.innerHTML = "This password is compromised, count = " + count; },
                 Clean: function () { infodiv.innerHTML = "This password is clean"; }
