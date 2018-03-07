@@ -11,28 +11,28 @@ View live demo on [jsfiddle](https://jsfiddle.net/jpxor/edpg1dxc/10/).
 ## Basic Usage
 The check function accepts a plaintext password or an SHA-1 hash as its first parameter. A plaintext password will be hashed.
 The second parameter is a callback for when a match is found. 
-
+```javascript
     PwnedPass.check(password, function(){
         console.log("this password was found in the haveibeenpwned password data");
     });
-
+```
 ## Extended Usage
 Optionally, the second parameter can be an object with two callbacks: Pwned and Clean. 
-
+```javascript
     // multiple callbacks
     PwnedPass.check(password, {
         Pwned: function(){ console.log("this password was found in the haveibeenpwned password data"); },
         Clean: function(){ console.log("this password is clean"); },
     });
-
+```
 If a plaintext password resembles an SHA-1 hash, then it wont be hashed automatically. You need to specify the ForceHash value in the second parameter object. 
-
+```javascript
     // force sha1 hashing of input
     PwnedPass.check(password, {
         ForceHash: true,
         Pwned: function(){ console.log("this password was found in the haveibeenpwned password data"); },
     });
-
+```
 ## Browser Compatibility
 The SHA-1 hashing relies on crypto.subtle (Specification status: Recommended). See its [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/subtle#Browser_compatibility). If this does not suit your needs, you can 
 use another solution to perform the hash, then provide PwnedPass with an SHA-1 hash instead of a plaintext password.
