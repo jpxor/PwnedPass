@@ -1,30 +1,32 @@
 <html>
-    <header>
-            <script src="pwnedpass.js"></script>
-            <script>
-                function CheckPass(password){                    
-                    pwnedpass.sha1(password).then(function(hash){
-                        pwnedpass.check(hash,
-                         {
-                            Pwned:function(){infodiv.innerHTML = "This password is compromised";},
-                            Clean:function(){infodiv.innerHTML = "This password is clean";}
-                        });
-                    });
-                }
-                function ClearPassInfo(){
-                    infodiv.innerHTML = "";
-                }
-            </script>
-    </header>
-    <body>
+<head>
+    <script src="pwnedpass.js" async></script>
+</head>
+
+<body>
+    <div style="position: relative; top: 20%;">
         <center>
-        <h2>Pwned Password Check (onblur)</h2>
-        <input type="password" onblur=CheckPass(this.value) oninput=ClearPassInfo()>
-        <div style="height: 1em; margin-bottom:2em;" id=passwordInfo></div>
-        <a href="https://haveibeenpwned.com/Passwords">Data Source</a>
-    </body>
-    <script>
-        pwnedpass.init("Demo"); // adds user-agent string, optional
-        var infodiv = document.getElementById("passwordInfo");
-    </script>
+            <h2>PwnedPass Check (onblur)</h2>
+            <input type="password" onblur=CheckPass(this.value) oninput=ClearPassInfo()>
+            <div style="height: 1em; margin-bottom:2em;" id=passwordInfo></div>
+            <a href="https://haveibeenpwned.com/Passwords">Data Source</a>
+        </center>
+    </div>
+</body>
+
+<script>
+    pwnedpass.setUserAgent("PwnedPass-Demo-App");
+    var infodiv = document.getElementById("passwordInfo");
+
+    function CheckPass(password) {
+        pwnedpass.check(password,
+            {
+                Pwned: function (count) { infodiv.innerHTML = "This password is compromised, count = " + count; },
+                Clean: function () { infodiv.innerHTML = "This password is clean"; }
+            });
+    }
+    function ClearPassInfo() {
+        infodiv.innerHTML = "";
+    }
+</script>
 </html>

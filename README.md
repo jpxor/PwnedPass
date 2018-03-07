@@ -1,20 +1,35 @@
-# Pwnedpass
-Javascript module for checking passwords against a set of known exposed passwords. This can be used client side to warn a user of insecure passwords. Exposed password data source: https://haveibeenpwned.com/Passwords
+# PwnedPass
+PwnedPass is an easy to use js module for checking passwords against a set of known exposed passwords. This can be used client side to warn a user of insecure passwords. Exposed password data source: https://haveibeenpwned.com/Passwords
 
-# Sample
+# Demo
+Link to demo...
 
-    <script src="pwnedpass.js"></script>
-    <script>
-        function CheckPass(password){                    
-            pwnedpass.sha1(password).then(function(hash){
-                pwnedpass.check(hash,
-                {
-                    Pwned:function(){infodiv.innerHTML = "This password is compromised";},
-                    Clean:function(){infodiv.innerHTML = "This password is clean";}
-                });
-            });
-        }
-    </script>
-See demo.html for full sample.
+# Basic Usage
+The check function accepts a plaintext password or an SHA-1 hash as its first parameter. A plaintext password will be hashed.
+The second parameter is a callback for when a match is found. 
 
-The check function is called with the sha1 hash and two callback functions grouped in an object. 
+    // simple
+    pwnedpass.check(password, function(){
+        console.log("this password was found in the haveibeenpwned password data");
+    });
+
+# Extended Usage
+Optionally, the second parameter can be an object with two callbacks: Pwned and Clean. 
+
+    // multiple callbacks
+    pwnedpass.check(password, {
+        Pwned: function(){ console.log("this password was found in the haveibeenpwned password data"); },
+        Clean: function(){ console.log("this password is clean"); },
+    });
+
+If a plaintext password resembles an SHA-1 hash, then it wont be hashed automatically. You need to specify the ForceHash value in the second parameter object. 
+
+    // force sha1 hash of input
+    pwnedpass.check(password, {
+        ForceHash: true,
+        Pwned: function(){ console.log("this password was found in the haveibeenpwned password data"); },
+    });
+
+# Contributing
+
+# License
