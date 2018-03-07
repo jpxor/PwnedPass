@@ -35,7 +35,7 @@ var PwnedPass = (function () {
     // isValidSHA1 allows us to check whether a 
     // password input is plaintext or sha-1 hash.
     function isValidSHA1(str) {
-        const regex = /[a-fA-F0-9]{40}/g;
+        var regex = /[a-fA-F0-9]{40}/g;
         return str.search(regex) >= 0;
     }
 
