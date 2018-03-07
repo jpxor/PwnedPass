@@ -1,9 +1,10 @@
 # PwnedPass
 PwnedPass is an easy to use js module for checking passwords against a set of known exposed passwords from past data breaches. This can be used client side to warn a user of insecure passwords. Exposed password data provided by https://haveibeenpwned.com/Passwords. 
 
+![Example Usage](https://github.com/jpxor/pwnedpass/blob/master/images/sample.png "Example Usage")
+
 ## Demo
 View demo on [jsfiddle](https://jsfiddle.net/jpxor/edpg1dxc/).
-
 
 ## Basic Usage
 The check function accepts a plaintext password or an SHA-1 hash as its first parameter. A plaintext password will be hashed.
