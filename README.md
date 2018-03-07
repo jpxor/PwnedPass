@@ -33,6 +33,14 @@ If a plaintext password resembles an SHA-1 hash, then it wont be hashed automati
         Pwned: function(){ console.log("this password was found in the haveibeenpwned password data"); },
     });
 
+## Browser Compatibility
+The SHA-1 hashing relies on crypto.subtle (Specification status: Recommended). See its browser compatibility here: [crypto.subtle](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/subtle#Browser_compatibility). If this does not suit your needs, you can 
+use another solution to perform the hash, then provide PwnedPass with an SHA-1 hash instead of a plaintext password.
+
+Other JS features used:
+ - [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#Browser_compatibility)
+ - [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/async_function#Browser_compatibility)
+
 ## Contributing
 If you have feature requests or bug reports, feel free to help out by sending pull requests or by creating new issues.
 
