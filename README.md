@@ -8,7 +8,7 @@ Link to demo...
 The check function accepts a plaintext password or an SHA-1 hash as its first parameter. A plaintext password will be hashed.
 The second parameter is a callback for when a match is found. 
 
-    pwnedpass.check(password, function(){
+    PwnedPass.check(password, function(){
         console.log("this password was found in the haveibeenpwned password data");
     });
 
@@ -16,7 +16,7 @@ The second parameter is a callback for when a match is found.
 Optionally, the second parameter can be an object with two callbacks: Pwned and Clean. 
 
     // multiple callbacks
-    pwnedpass.check(password, {
+    PwnedPass.check(password, {
         Pwned: function(){ console.log("this password was found in the haveibeenpwned password data"); },
         Clean: function(){ console.log("this password is clean"); },
     });
@@ -24,7 +24,7 @@ Optionally, the second parameter can be an object with two callbacks: Pwned and 
 If a plaintext password resembles an SHA-1 hash, then it wont be hashed automatically. You need to specify the ForceHash value in the second parameter object. 
 
     // force sha1 hashing of input
-    pwnedpass.check(password, {
+    PwnedPass.check(password, {
         ForceHash: true,
         Pwned: function(){ console.log("this password was found in the haveibeenpwned password data"); },
     });
