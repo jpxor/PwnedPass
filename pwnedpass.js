@@ -58,12 +58,12 @@ var PwnedPass = (function () {
     }
 
 
-    // cleanInput parses the input types and provides a single config object 
+    // cleanInput parses the input types and provides a single params object 
     // in the format accepted by the doCheck function. A promise is used solely
     // for the ability to write: "cleanInput(,).then(doCheck)".
     function cleanInput(first, second) {
         return new Promise(async function (resolve, error) {
-            var config = {}
+            var params = {}
 
             if (!first || 'string' !== typeof first) {
                 error("must provide password or SHA-1 hash as first parameter");
@@ -75,20 +75,20 @@ var PwnedPass = (function () {
             }
 
             if ('function' === typeof second) {
-                config.Pwned = second;
-                config.Clean = function () { };
+                params.Pwned = second;
+                params.Clean = function () { };
             } else {
-                config = second;
-                if (!config.Pwned) { config.Pwned = function (count) { console.log("This password is compromised, frequency: " + count); } }
-                if (!config.Clean) { config.Clean = function () { }; }
+                params = second;
+                if (!params.Pwned) { params.Pwned = function (count) { console.log("This password is compromised, frequency: " + count); } }
+                if (!params.Clean) { params.Clean = function () { }; }
             }
 
-            if (!isValidSHA1(first) || config.ForceHash) {
-                config.SHA1Hash = await Promise.resolve(doSHA1(first));
+            if (!isValidSHA1(first) || params.ForceHash) {
+                params.SHA1Hash = await Promise.resolve(doSHA1(first));
             } else {
-                config.SHA1Hash = first;
+                params.SHA1Hash = first;
             }
-            resolve(config);
+            resolve(params);
         });
     }
 
@@ -96,10 +96,10 @@ var PwnedPass = (function () {
     // doCheck calls the haveibeenpwned API and compares password hashes,
     // A throttler is applied because calls to the haveibeenpwned API should 
     // be limited to one per 2 seconds.
-    function doCheck(config) {
+    function doCheck(params) {
         throttle.apply(function () {
-            var first5 = config.SHA1Hash.substr(0, 5);
-            var remainder = config.SHA1Hash.substr(5).toUpperCase();
+            var first5 = params.SHA1Hash.substr(0, 5);
+            var remainder = params.SHA1Hash.substr(5).toUpperCase();
 
             httpGET(apiURL + first5, function (response) {
                 var lines = response.split('\n');
@@ -108,11 +108,11 @@ var PwnedPass = (function () {
                     respSplit = lines[i].split(':');
                     respHash = respSplit[0];
                     if (respHash === remainder) {
-                        config.Pwned(parseInt(respSplit[1]));
+                        params.Pwned(parseInt(respSplit[1]));
                         return;
                     }
                 }
-                config.Clean();
+                params.Clean();
             });
         });
     }
